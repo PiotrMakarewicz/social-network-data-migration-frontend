@@ -1,0 +1,18 @@
+<h3>SQL SCHEMA</h3>
+<div class="schemaContainer">
+<div *ngFor="let table of schema.tables" class="tableContainer">
+    Table <b>{{ table.name }}</b>
+    <table>
+        <tr>
+            <th>Column</th>
+            <th>Data type</th>
+            <th>Foreign key</th>
+        </tr>
+        <tr *ngFor="let column of table.columns">
+            <td>{{ column.name }}</td>
+            <td>{{ column.type }}</td>
+            <td *ngIf="column.foreignKey != null">{{ column.foreignKey }}</td>
+        </tr>
+    </table>
+</div>
+</div>

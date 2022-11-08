@@ -1,0 +1,21 @@
+table {
+    border-collapse:separate;
+    border:solid black 1px;
+}
+
+td, th {
+    border:solid black 1px;
+    padding: 2px;
+}
+
+.schemaContainer {
+    overflow-y: scroll;
+    max-height: 500px;
+    border:solid black 1px;
+    padding: 5px;
+    width: 45%;
+}
+
+.tableContainer {
+    margin-bottom: 10px;
+}

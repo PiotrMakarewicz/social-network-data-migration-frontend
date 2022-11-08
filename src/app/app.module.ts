@@ -8,6 +8,10 @@ import { MigrateFromSqlComponent } from './migrate-from-sql/migrate-from-sql.com
 import { MigrateFromCsvComponent } from './migrate-from-csv/migrate-from-csv.component';
 import { GraphAnalyticsComponent } from './graph-analytics/graph-analytics.component';
 import { SqlSchemaComponent } from './sql-schema/sql-schema.component';
+import { SqlNodeMappingComponent } from './sql-node-mapping/sql-node-mapping.component';
+import { SqlEdgeMappingComponent } from './sql-edge-mapping/sql-edge-mapping.component';
+import { ColumnMappingComponent } from './column-mapping/column-mapping.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,12 +19,16 @@ import { SqlSchemaComponent } from './sql-schema/sql-schema.component';
     MigrateFromSqlComponent,
     MigrateFromCsvComponent,
     GraphAnalyticsComponent,
-    SqlSchemaComponent
+    SqlSchemaComponent,
+    SqlNodeMappingComponent,
+    SqlEdgeMappingComponent,
+    ColumnMappingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

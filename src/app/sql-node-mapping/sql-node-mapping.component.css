@@ -1,0 +1,44 @@
+.node-mapping {
+    border: 1px solid black;
+    margin: 10px;
+    padding: 5px
+}
+
+.node-mapping-header {
+    font-weight: bold;
+    display: grid;
+    grid-template-columns: 45% 45% 10%;
+}
+
+.column-mappings-header {
+    display: grid;
+    text-align: center;
+    font-weight: bold;
+    grid-template-columns: 45% 45% 10%;
+}
+
+.column-mappings {
+    margin: 10px
+}
+
+.input-with-label {
+    margin: 1px;
+
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.input-with-label > span {
+    text-align: right;
+    margin-right: 2px;
+}
+
+.delete-node-mapping-button {
+    width: fit-content;
+    margin: auto;
+}
+
+.empty-row {
+    grid-column-end: 4;
+    height: 15px;;
+}

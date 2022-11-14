@@ -1,1 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+.mapping {
+    border: 1px solid black;
+    margin: 10px;
+    padding: 5px
+}
+
+.mapping-header {
+    font-weight: bold;
+    display: grid;
+    grid-template-columns: 45% 45% 10%;
+}
+
+.input-with-label {
+    margin: 1px;
+
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.input-with-label > span {
+    text-align: right;
+    margin-right: 2px;
+}
+
+.empty-row {
+    grid-column-end: 4;
+    height: 15px;;
+}
+
+.column-mappings-header {
+    display: grid;
+    text-align: center;
+    font-weight: bold;
+    grid-template-columns: 45% 45% 10%;
+}
+
+.column-mappings {
+    margin: 10px
+}
+
+.delete-mapping-button {
+    width: fit-content;
+    margin: auto;
+}

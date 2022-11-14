@@ -9,9 +9,10 @@ import { MigrateFromCsvComponent } from './migrate-from-csv/migrate-from-csv.com
 import { GraphAnalyticsComponent } from './graph-analytics/graph-analytics.component';
 import { SqlSchemaComponent } from './sql-schema/sql-schema.component';
 import { SqlNodeMappingComponent } from './sql-node-mapping/sql-node-mapping.component';
-import { SqlEdgeMappingComponent } from './sql-edge-mapping/sql-edge-mapping.component';
 import { ColumnMappingComponent } from './column-mapping/column-mapping.component';
 import { FormsModule } from '@angular/forms';
+import { SqlJoinTableEdgeMappingComponent } from './sql-join-table-edge-mapping/sql-join-table-edge-mapping.component';
+import { SqlForeignKeyEdgeMappingComponent } from './sql-foreign-key-edge-mapping/sql-foreign-key-edge-mapping.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,9 @@ import { FormsModule } from '@angular/forms';
     GraphAnalyticsComponent,
     SqlSchemaComponent,
     SqlNodeMappingComponent,
-    SqlEdgeMappingComponent,
-    ColumnMappingComponent
+    ColumnMappingComponent,
+    SqlJoinTableEdgeMappingComponent,
+    SqlForeignKeyEdgeMappingComponent
   ],
   imports: [
     BrowserModule,

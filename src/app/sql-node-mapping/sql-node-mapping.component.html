@@ -1,0 +1,29 @@
+<div class="mapping">
+    <div class="mapping-header">
+        <div class="input-with-label">
+            <span>SQL table:</span>
+            <input type="text">
+        </div>
+        <div class="input-with-label">
+            <span>Node label:</span>
+            <input type="text">
+        </div>
+        <button class="delete-mapping-button" (click)="onDelete()">Delete</button>
+        <div class="empty-row"></div>
+    </div>
+
+    <div class="column-mappings">
+        <div class="column-mappings-header">
+            <div>SQL column</div>
+            <div>Neo4j property</div>
+            <div></div>
+        </div>
+        <app-column-mapping 
+            *ngFor="let columnMappingId of columnMappingIds"
+            [mappingId]="columnMappingId"
+            (columnMappingUpdatedEvent)="onColumnMappingUpdatedEvent($event)"
+            (columnMappingDeletedEvent)="onColumnMappingDeletedEvent($event)"
+        ></app-column-mapping>
+        <button (click)="addColumnMapping()">Add column mapping</button>
+    </div>
+</div>

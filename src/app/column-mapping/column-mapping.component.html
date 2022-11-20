@@ -1,0 +1,5 @@
+<div>
+<input [(ngModel)]="sqlColumn" #ctrl="ngModel" type="text" (input)="onUpdate();">
+<input [(ngModel)]="neo4jProperty" #ctrl="ngModel" type="text" (input)="onUpdate();">
+<button (click)="onDelete();">Delete</button>
+</div>

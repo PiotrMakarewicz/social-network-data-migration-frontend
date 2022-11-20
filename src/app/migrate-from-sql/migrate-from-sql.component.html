@@ -1,1 +1,31 @@
-<app-sql-schema></app-sql-schema>
+<div class="sql-migration-grid">
+    <div>
+        <h3 class="grid-area-header">SQL SCHEMA</h3>
+        <app-sql-schema></app-sql-schema>
+    </div>
+    <div>
+        <h3 class="grid-area-header">NEO4J SCHEMA</h3>
+    </div>
+    <div class="node-mappings">
+        <h3 class="grid-area-header">NODE MAPPINGS</h3>
+        <app-sql-node-mapping *ngFor="let nodeMappingId of nodeMappingIds" [nodeMappingId]="nodeMappingId"
+            (nodeMappingDeletedEvent)="onNodeMappingDeletedEvent($event);"
+            (nodeMappingUpdatedEvent)="onNodeMappingUpdatedEvent($event);"></app-sql-node-mapping>
+        <button (click)="addNodeMapping()">Add node mapping</button>
+    </div>
+    <div class="edge-mappings">
+        <h3 class="grid-area-header">EDGE MAPPINGS</h3>
+        <app-sql-foreign-key-edge-mapping *ngFor="let foreignKeyEdgeMappingId of foreignKeyEdgeMappingIds"
+            [foreignKeyEdgeMappingId]="foreignKeyEdgeMappingId"
+            (foreignKeyEdgeMappingDeletedEvent)="onForeignKeyEdgeMappingDeletedEvent($event);"
+            (foreignKeyEdgeMappingUpdatedEvent)="onForeignKeyEdgeMappingUpdatedEvent($event);">
+        </app-sql-foreign-key-edge-mapping>
+        <app-sql-join-table-edge-mapping *ngFor="let joinTableEdgeMappingId of joinTableEdgeMappingIds"
+            [joinTableEdgeMappingId]="joinTableEdgeMappingId"
+            (joinTableEdgeMappingDeletedEvent)="onJoinTableEdgeMappingDeletedEvent($event);"
+            (joinTableEdgeMappingUpdatedEvent)="onJoinTableEdgeMappingUpdatedEvent($event);">
+        </app-sql-join-table-edge-mapping>
+        <button (click)="addForeignKeyEdgeMapping()">Add edge mapping (foreign key)</button>
+        <button (click)="addJoinTableEdgeMapping()">Add edge mapping (join table)</button>
+    </div>
+</div>

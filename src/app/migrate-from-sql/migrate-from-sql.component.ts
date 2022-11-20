@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { never } from 'rxjs';
+import { SqlEdgeMapping, SqlNodeMapping, SqlSchemaMapping } from '../mapping-schemas';
 import { SqlForeignKeyEdgeMappingComponent } from '../sql-foreign-key-edge-mapping/sql-foreign-key-edge-mapping.component';
 import { SqlJoinTableEdgeMappingComponent } from '../sql-join-table-edge-mapping/sql-join-table-edge-mapping.component';
 import { SqlNodeMappingComponent } from '../sql-node-mapping/sql-node-mapping.component';
@@ -19,7 +21,13 @@ export class MigrateFromSqlComponent implements OnInit {
   joinTableEdgeMappingIds: Array<number> = [1024] // raczej nie chcemy kolizji w idkach edge mappingów, bo chcemy je zapisać w jednej mapie by je potem prosto serializować
   highestJoinTableEdgeMappingId = 1024;
 
-  constructor() { }
+  mappingsJsonUri = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify({
+    "nodes": [],
+    "edges": []
+  }))
+
+  nodeMappings: Map<number, SqlNodeMapping> = new Map<number, SqlNodeMapping>([]);
+  edgeMappings: Map<number, SqlEdgeMapping> = new Map<number, SqlEdgeMapping>([]);
 
   ngOnInit(): void {
   }
@@ -28,27 +36,30 @@ export class MigrateFromSqlComponent implements OnInit {
   addNodeMapping(){
     this.highestNodeMappingId++;
     this.nodeMappingIds.push(this.highestNodeMappingId);
+    this.onUpdate();
   };
 
   onNodeMappingDeletedEvent(event: any){
-    let nodeMappingComponent = event as SqlNodeMappingComponent
-    const index = this.nodeMappingIds.indexOf(nodeMappingComponent.nodeMappingId);
+    let component = event as SqlNodeMappingComponent
+    const index = this.nodeMappingIds.indexOf(component.nodeMappingId);
     
     if (index > -1){
       this.nodeMappingIds.splice(index, 1);
     }
+    this.onUpdate();
   }
 
   onNodeMappingUpdatedEvent(event: any){
-    let nodeMappingComponent = event as SqlNodeMappingComponent
-    console.log(nodeMappingComponent);
-    // TODO zapisuj mapping w mapie mappingId -> obiekt NodeMapping
+    let component = event as SqlNodeMappingComponent
+    this.nodeMappings.set(component.nodeMappingId, component.getSqlNodeMapping())
+    this.onUpdate();
   }
 
 
   addJoinTableEdgeMapping(){
     this.highestJoinTableEdgeMappingId++;
     this.joinTableEdgeMappingIds.push(this.highestJoinTableEdgeMappingId);
+    this.onUpdate();
   };
 
   onJoinTableEdgeMappingDeletedEvent(event: any){
@@ -58,25 +69,29 @@ export class MigrateFromSqlComponent implements OnInit {
     if (index > -1){
       this.joinTableEdgeMappingIds.splice(index, 1);
     }
+    this.edgeMappings.delete(component.joinTableEdgeMappingId)
+
+    this.onUpdate();
   }
 
   onJoinTableEdgeMappingUpdatedEvent(event: any){
     let component = event as SqlJoinTableEdgeMappingComponent
-    console.log(component);
-    // TODO zapisuj mapping w mapie mappingId -> obiekt EdgeMapping
+    this.edgeMappings.set(component.joinTableEdgeMappingId, component.getJoinTableEdgeMapping())
+    this.onUpdate();
   }
 
 
   addForeignKeyEdgeMapping(){
     this.highestForeignKeyEdgeMappingId++;
     this.foreignKeyEdgeMappingIds.push(this.highestForeignKeyEdgeMappingId);
+    this.onUpdate();
   };
 
 
   onForeignKeyEdgeMappingUpdatedEvent(event: any){
     let component = event as SqlForeignKeyEdgeMappingComponent
-    console.log(component);
-    // TODO zapisuj mapping w mapie mappingId -> obiekt EdgeMapping
+    this.edgeMappings.set(component.foreignKeyEdgeMappingId, component.getForeignKeyEdgeMapping())
+    this.onUpdate();
   }
 
   onForeignKeyEdgeMappingDeletedEvent(event: any){
@@ -87,5 +102,32 @@ export class MigrateFromSqlComponent implements OnInit {
     if (index > -1){
       this.foreignKeyEdgeMappingIds.splice(index, 1);
     }
+    this.onUpdate();
+  }
+
+  onUpdate(){
+    this.mappingsJsonUri = this.generateMappingsJsonUri();
+    console.log(this.mappingsJsonUri);
+  }
+
+  getSqlSchemaMapping(): SqlSchemaMapping {
+    console.log(this.nodeMappings);
+    return {
+      "nodes": Array.from(this.nodeMappings.values()),
+      "edges": Array.from(this.edgeMappings.values())
+    }
+  }
+
+  jsonReplacer(_: any, value: any) {
+    if (value instanceof Map) 
+      return Object.fromEntries(value.entries())
+    else 
+      return value;
+  }
+
+  generateMappingsJsonUri() {
+    const sqlSchemaMapping = this.getSqlSchemaMapping();
+    const jsonStr = JSON.stringify(sqlSchemaMapping, this.jsonReplacer);
+    return "data:application/json;charset=UTF-8," + encodeURIComponent(jsonStr);
   }
 }

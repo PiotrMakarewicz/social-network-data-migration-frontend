@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ForeignKeyEdgeMapping } from '../mapping-schemas';
 
 @Component({
   selector: 'app-sql-foreign-key-edge-mapping',
@@ -12,12 +13,31 @@ export class SqlForeignKeyEdgeMappingComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  edgeLabel = ""
+  foreignKeyTable = ""
+  fromTable = ""
+  toTable = ""
+
   @Input() foreignKeyEdgeMappingId = 0;
 
   @Output() foreignKeyEdgeMappingDeletedEvent = new EventEmitter<SqlForeignKeyEdgeMappingComponent>();
 
   @Output() foreignKeyEdgeMappingUpdatedEvent = new EventEmitter<SqlForeignKeyEdgeMappingComponent>();
+  
+  onUpdate(){
+    this.foreignKeyEdgeMappingUpdatedEvent.emit(this);
+  }
+  
   onDelete() {
     this.foreignKeyEdgeMappingDeletedEvent.emit(this);
+  }
+
+  getForeignKeyEdgeMapping(): ForeignKeyEdgeMapping {
+    return {
+      "foreignKeyTable": this.foreignKeyTable,
+      "edgeLabel": this.edgeLabel,
+      "from": this.fromTable,
+      "to": this.toTable
+    }
   }
 }

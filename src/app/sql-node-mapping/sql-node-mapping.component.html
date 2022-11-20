@@ -2,11 +2,11 @@
     <div class="mapping-header">
         <div class="input-with-label">
             <span>SQL table:</span>
-            <input type="text">
+            <input type="text" [(ngModel)]="sqlTableName" #ctrl="ngModel" (input)="onUpdate()">
         </div>
         <div class="input-with-label">
             <span>Node label:</span>
-            <input type="text">
+            <input type="text" [(ngModel)]="nodeLabel" #ctrl="ngModel" (input)="onUpdate()">
         </div>
         <button class="delete-mapping-button" (click)="onDelete()">Delete</button>
         <div class="empty-row"></div>
@@ -22,8 +22,8 @@
             *ngFor="let columnMappingId of columnMappingIds"
             [mappingId]="columnMappingId"
             (columnMappingUpdatedEvent)="onColumnMappingUpdatedEvent($event)"
-            (columnMappingDeletedEvent)="onColumnMappingDeletedEvent($event)"
-        ></app-column-mapping>
+            (columnMappingDeletedEvent)="onColumnMappingDeletedEvent($event)">
+        </app-column-mapping>
         <button (click)="addColumnMapping()">Add column mapping</button>
     </div>
 </div>

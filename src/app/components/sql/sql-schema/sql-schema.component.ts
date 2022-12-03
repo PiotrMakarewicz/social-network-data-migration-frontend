@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BackendService } from '../backend.service';
-import { ColumnInfo, DatabaseInfo, ForeignKeyColumnInfo, TableInfo } from '../payloads';
+import { BackendService } from '../../../services/backend/backend.service';
+import { ColumnInfo, DatabaseInfo, ForeignKeyColumnInfo, TableInfo } from '../../../interfaces/payloads';
 
 @Component({
   selector: 'app-sql-schema',

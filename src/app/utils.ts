@@ -1,4 +1,4 @@
-import { ColumnMappingComponent } from "./column-mapping/column-mapping.component";
+import { ColumnMappingComponent } from "./components/common/column-mapping/column-mapping.component";
 
 export function getMappedColumns(columnMappingComponents: Map<number, ColumnMappingComponent>): Map<String, String> {
     let map: Map<String, String> = new Map();

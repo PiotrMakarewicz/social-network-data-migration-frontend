@@ -1,8 +1,8 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { AppComponent } from '../app.component';
-import { ColumnMappingComponent } from '../column-mapping/column-mapping.component';
-import { SqlNodeMapping } from '../mapping-schemas';
-import { getMappedColumns } from '../utils';
+import { AppComponent } from '../../../app.component';
+import { ColumnMappingComponent } from '../../common/column-mapping/column-mapping.component';
+import { SqlNodeMapping } from '../../../interfaces/mapping-schemas';
+import { getMappedColumns } from '../../../utils';
 
 
 @Component({

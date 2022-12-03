@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ForeignKeyEdgeMapping } from '../mapping-schemas';
+import { ForeignKeyEdgeMapping } from '../../../interfaces/mapping-schemas';
 
 @Component({
   selector: 'app-sql-foreign-key-edge-mapping',

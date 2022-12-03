@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { never } from 'rxjs';
+import { GraphVisualizationService } from 'src/app/services/graph-visualization/graph-visualization.service';
+import { SqlMappingToGraphService } from 'src/app/services/sql-mapping-to-graph/sql-mapping-to-graph.service';
 import { SqlEdgeMapping, SqlNodeMapping, SqlSchemaMapping } from '../../../interfaces/mapping-schemas';
 import { SqlForeignKeyEdgeMappingComponent } from '../sql-foreign-key-edge-mapping/sql-foreign-key-edge-mapping.component';
 import { SqlJoinTableEdgeMappingComponent } from '../sql-join-table-edge-mapping/sql-join-table-edge-mapping.component';
@@ -11,6 +13,12 @@ import { SqlNodeMappingComponent } from '../sql-node-mapping/sql-node-mapping.co
   styleUrls: ['./migrate-from-sql.component.css']
 })
 export class MigrateFromSqlComponent implements OnInit {
+  graphInDotFormat: string = "digraph {}";
+
+  constructor(
+    private sqlMappingToGraph: SqlMappingToGraphService,
+    private graphVisualization: GraphVisualizationService
+  ){}
 
   nodeMappingIds: Array<number> = [0]
   highestNodeMappingId = 0;
@@ -108,6 +116,8 @@ export class MigrateFromSqlComponent implements OnInit {
   onUpdate(){
     this.mappingsJsonUri = this.generateMappingsJsonUri();
     console.log(this.mappingsJsonUri);
+    const graph = this.sqlMappingToGraph.convert(this.getSqlSchemaMapping())
+    this.graphInDotFormat = this.graphVisualization.toDotFormat(graph)
   }
 
   getSqlSchemaMapping(): SqlSchemaMapping {

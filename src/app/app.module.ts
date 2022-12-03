@@ -12,6 +12,7 @@ import { ColumnMappingComponent } from './components/common/column-mapping/colum
 import { FormsModule } from '@angular/forms';
 import { SqlJoinTableEdgeMappingComponent } from './components/sql/sql-join-table-edge-mapping/sql-join-table-edge-mapping.component';
 import { SqlForeignKeyEdgeMappingComponent } from './components/sql/sql-foreign-key-edge-mapping/sql-foreign-key-edge-mapping.component';
+import { GraphVisualizationComponent } from './components/common/graph-visualization/graph-visualization.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SqlForeignKeyEdgeMappingComponent } from './components/sql/sql-foreign-
     SqlNodeMappingComponent,
     ColumnMappingComponent,
     SqlJoinTableEdgeMappingComponent,
-    SqlForeignKeyEdgeMappingComponent
+    SqlForeignKeyEdgeMappingComponent,
+    GraphVisualizationComponent
   ],
   imports: [
     BrowserModule,

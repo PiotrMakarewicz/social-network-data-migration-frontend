@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PostgreSchemaResponsePayload } from './payloads';
+import { PostgreSchemaResponsePayload } from '../../interfaces/payloads';
 
 @Injectable({
   providedIn: 'root'

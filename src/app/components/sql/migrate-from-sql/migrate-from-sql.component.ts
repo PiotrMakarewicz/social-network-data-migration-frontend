@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { never } from 'rxjs';
-import { SqlEdgeMapping, SqlNodeMapping, SqlSchemaMapping } from '../mapping-schemas';
+import { SqlEdgeMapping, SqlNodeMapping, SqlSchemaMapping } from '../../../interfaces/mapping-schemas';
 import { SqlForeignKeyEdgeMappingComponent } from '../sql-foreign-key-edge-mapping/sql-foreign-key-edge-mapping.component';
 import { SqlJoinTableEdgeMappingComponent } from '../sql-join-table-edge-mapping/sql-join-table-edge-mapping.component';
 import { SqlNodeMappingComponent } from '../sql-node-mapping/sql-node-mapping.component';

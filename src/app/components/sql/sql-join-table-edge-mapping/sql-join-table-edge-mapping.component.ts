@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, getModuleFactory } from '@angular/core';
-import { ColumnMappingComponent } from '../column-mapping/column-mapping.component';
-import { JoinTableEdgeMapping, SqlEdgeMapping } from '../mapping-schemas';
-import { getMappedColumns } from '../utils';
+import { ColumnMappingComponent } from '../../../components/common/column-mapping/column-mapping.component';
+import { JoinTableEdgeMapping, SqlEdgeMapping } from '../../../interfaces/mapping-schemas';
+import { getMappedColumns } from '../../../utils';
 
 @Component({
   selector: 'app-sql-join-table-edge-mapping',

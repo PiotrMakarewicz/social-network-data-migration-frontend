@@ -1,5 +1,9 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { AppComponent } from '../app.component';
 import { ColumnMappingComponent } from '../column-mapping/column-mapping.component';
+import { SqlNodeMapping } from '../mapping-schemas';
+import { getMappedColumns } from '../utils';
+
 
 @Component({
   selector: 'app-sql-node-mapping',
@@ -8,10 +12,15 @@ import { ColumnMappingComponent } from '../column-mapping/column-mapping.compone
 })
 export class SqlNodeMappingComponent implements OnInit {
 
+  nodeLabel = ""
+  sqlTableName = ""
+
   columnMappingIds: Array<number> = [0]
   highestColumnMappingId = 0;
 
   @Input() nodeMappingId = 0;
+
+  columnMappingComponents: Map<number, ColumnMappingComponent> = new Map();
 
   constructor() { }
 
@@ -31,24 +40,32 @@ export class SqlNodeMappingComponent implements OnInit {
 
   onColumnMappingDeletedEvent(event: any){
     let columnMappingComponent = event as ColumnMappingComponent
-    const index = this.columnMappingIds.indexOf(columnMappingComponent.mappingId);
+    let columnMappingId = columnMappingComponent.mappingId
+    const index = this.columnMappingIds.indexOf(columnMappingId);
     
     if (index > -1){
       this.columnMappingIds.splice(index, 1);
     }
 
+    this.columnMappingComponents.delete(columnMappingId)
     this.onUpdate();
   }
   onColumnMappingUpdatedEvent(event: any){
     let columnMappingComponent = event as ColumnMappingComponent
-    console.log(columnMappingComponent);
-    // TODO zapisuj mapping w mapie mappingId -> ["kolumna", "neo4jproperty"]
-
+    this.columnMappingComponents.set(columnMappingComponent.mappingId, columnMappingComponent)
     this.onUpdate();
   }
   addColumnMapping(){
     this.highestColumnMappingId++;
     this.columnMappingIds.push(this.highestColumnMappingId);
+    this.onUpdate();
   }
 
+  getSqlNodeMapping(): SqlNodeMapping {
+    return {
+      "mappedColumns": getMappedColumns(this.columnMappingComponents),
+      "nodeLabel": this.nodeLabel,
+      "sqlTableName": this.sqlTableName
+    }
+  }
 }

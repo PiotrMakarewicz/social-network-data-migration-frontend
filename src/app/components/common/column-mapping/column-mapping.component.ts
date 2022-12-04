@@ -25,7 +25,7 @@ export class ColumnMappingComponent implements OnInit, MappingComponent, Mapping
     this.columnMappingDeletedEvent.emit(this);
   }
 
-  isValid(input: string): boolean {
+  isValid(input: String): boolean {
     return this.validationService.isOneWordBeginningWithLetter(input)
   }
 

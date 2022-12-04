@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { never } from 'rxjs';
+import { never, Observable, Subject } from 'rxjs';
 import { GraphVisualizationService } from 'src/app/services/graph-visualization/graph-visualization.service';
 import { SqlMappingToGraphService } from 'src/app/services/sql-mapping-to-graph/sql-mapping-to-graph.service';
 import { MappingComponent, Updateable } from 'src/app/interfaces/components';
@@ -15,8 +15,8 @@ import { SqlNodeMappingComponent } from '../sql-node-mapping/sql-node-mapping.co
   styleUrls: ['./migrate-from-sql.component.css']
 })
 export class MigrateFromSqlComponent implements OnInit, Updateable {
-  graphInDotFormat: string = "digraph {}";
-  
+  graphInDotFormat: Subject<String> = new Subject<String>();
+
   constructor(
     private sqlMappingToGraph: SqlMappingToGraphService,
     private graphVisualization: GraphVisualizationService
@@ -34,6 +34,8 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
 
   onUpdate(){
     this.mappingsJsonUri = this.generateMappingsJsonUri();
+    const graph = this.sqlMappingToGraph.convert(this.getSqlSchemaMapping())
+    this.graphInDotFormat.next(this.graphVisualization.toDotFormat(graph))
   }
 
   generateMappingsJsonUri() {

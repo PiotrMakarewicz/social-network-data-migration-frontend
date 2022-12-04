@@ -31,7 +31,6 @@ export function saveMappingIfValidAndUpdate<T extends Mapping>(map: Map<number, 
     map.set(component.mappingId, <T>component.getMapping())
   else
     map.delete(component.mappingId)
-
   upd.onUpdate()
 }
 

@@ -26,7 +26,7 @@ export class SqlJoinTableEdgeMappingComponent implements OnInit, MappingComponen
         && this.isValid(this.toTable)
   }
 
-  isValid(input: string): boolean {
+  isValid(input: String): boolean {
     return this.validationService.isOneWordBeginningWithLetter(input)
   }
 

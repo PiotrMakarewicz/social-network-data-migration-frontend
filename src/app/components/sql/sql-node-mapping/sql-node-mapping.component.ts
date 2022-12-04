@@ -26,7 +26,7 @@ export class SqlNodeMappingComponent implements OnInit, MappingComponent {
 
   constructor(private validationService: ValidationService) {}
 
-  isValid(input: string): boolean {
+  isValid(input: String): boolean {
     return this.validationService.isOneWordBeginningWithLetter(input)
   }
 
@@ -61,7 +61,7 @@ export class SqlNodeMappingComponent implements OnInit, MappingComponent {
   }
   
   addColumnMapping(){
-    const id = this.highestColumnMappingId++
+    const id = ++(this.highestColumnMappingId)
     addMappingIdAndUpdate(this.columnMappingIds, id, this)
   }
 

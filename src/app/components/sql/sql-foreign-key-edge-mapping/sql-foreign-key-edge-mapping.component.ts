@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MappingComponent } from 'src/app/interfaces/components';
+import { ValidationService } from 'src/app/services/validation/validation.service';
 import { ForeignKeyEdgeMapping } from '../../../interfaces/mapping-schemas';
 
 @Component({
@@ -6,9 +8,20 @@ import { ForeignKeyEdgeMapping } from '../../../interfaces/mapping-schemas';
   templateUrl: './sql-foreign-key-edge-mapping.component.html',
   styleUrls: ['./sql-foreign-key-edge-mapping.component.css']
 })
-export class SqlForeignKeyEdgeMappingComponent implements OnInit {
+export class SqlForeignKeyEdgeMappingComponent implements OnInit, MappingComponent {
 
-  constructor() { }
+  constructor(private validationService: ValidationService) { }
+
+  hasValidInput(): boolean {
+    return this.isValid(this.edgeLabel)
+        && this.isValid(this.foreignKeyTable)
+        && this.isValid(this.fromTable)
+        && this.isValid(this.toTable)
+  }
+
+  isValid(input: string): boolean {
+    return this.validationService.isOneWordBeginningWithLetter(input)
+  }
 
   ngOnInit(): void {
   }
@@ -18,7 +31,7 @@ export class SqlForeignKeyEdgeMappingComponent implements OnInit {
   fromTable = ""
   toTable = ""
 
-  @Input() foreignKeyEdgeMappingId = 0;
+  @Input() mappingId = 0;
 
   @Output() foreignKeyEdgeMappingDeletedEvent = new EventEmitter<SqlForeignKeyEdgeMappingComponent>();
 
@@ -32,7 +45,7 @@ export class SqlForeignKeyEdgeMappingComponent implements OnInit {
     this.foreignKeyEdgeMappingDeletedEvent.emit(this);
   }
 
-  getForeignKeyEdgeMapping(): ForeignKeyEdgeMapping {
+  getMapping(): ForeignKeyEdgeMapping {
     return {
       "foreignKeyTable": this.foreignKeyTable,
       "edgeLabel": this.edgeLabel,

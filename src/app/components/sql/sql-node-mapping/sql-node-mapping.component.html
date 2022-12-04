@@ -2,11 +2,13 @@
     <div class="mapping-header">
         <div class="input-with-label">
             <span>SQL table:</span>
-            <input type="text" [(ngModel)]="sqlTableName" #ctrl="ngModel" (input)="onUpdate()">
+            <input type="text" [(ngModel)]="sqlTableName" #ctrl="ngModel" (input)="onUpdate()"
+            [ngStyle]="{'background-color': (isValid(sqlTableName)) ? '#ffffff' : '#ffaaaa'}" >
         </div>
         <div class="input-with-label">
             <span>Node label:</span>
-            <input type="text" [(ngModel)]="nodeLabel" #ctrl="ngModel" (input)="onUpdate()">
+            <input type="text" [(ngModel)]="nodeLabel" #ctrl="ngModel" (input)="onUpdate()"
+            [ngStyle]="{'background-color': (isValid(nodeLabel)) ? '#ffffff' : '#ffaaaa'}" >
         </div>
         <button class="delete-mapping-button" (click)="onDelete()">Delete</button>
         <div class="empty-row"></div>

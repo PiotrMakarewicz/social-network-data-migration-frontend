@@ -1,15 +1,17 @@
-export interface SqlSchemaMapping {
+export interface Mapping {}
+
+export interface SqlSchemaMapping extends Mapping {
     nodes: Array<SqlNodeMapping>,
     edges: Array<SqlEdgeMapping>
 }
 
-export interface SqlNodeMapping {
+export interface SqlNodeMapping extends Mapping  {
     nodeLabel: String,
     sqlTableName: String,
     mappedColumns: Map<String, String>
 }
 
-export interface SqlEdgeMapping {
+export interface SqlEdgeMapping extends Mapping  {
     edgeLabel: String,
     from: String,
     to: String

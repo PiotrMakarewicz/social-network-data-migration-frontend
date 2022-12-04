@@ -15,8 +15,7 @@ export class SqlSchemaComponent implements OnInit {
 
   ngOnInit(): void {
     this.backendService.getPostgresSchema().subscribe(
-      payload => {this.schema = this.toDisplayableSchema(payload.databaseInfo)
-      console.log(this.schema)}
+      payload => {this.schema = this.toDisplayableSchema(payload.databaseInfo)}
     )
   }
   

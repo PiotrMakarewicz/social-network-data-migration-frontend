@@ -66,7 +66,6 @@ export class SqlJoinTableEdgeMappingComponent implements OnInit, MappingComponen
   }
   onColumnMappingUpdatedEvent(event: any){
     let columnMappingComponent = event as ColumnMappingComponent
-    console.log(columnMappingComponent);
     this.columnMappingComponents.set(columnMappingComponent.mappingId, columnMappingComponent)
     this.onUpdate();
   }

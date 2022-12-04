@@ -27,7 +27,6 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
 
   onUpdate(){
     this.mappingsJsonUri = this.generateMappingsJsonUri();
-    console.log(this.mappingsJsonUri);
   }
 
   generateMappingsJsonUri() {
@@ -37,7 +36,6 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
   }
 
   getSqlSchemaMapping(): SqlSchemaMapping {
-    console.log(this.nodeMappings);
     return {
       "nodes": Array.from(this.nodeMappings.values()),
       "edges": Array.from(this.edgeMappings.values())
@@ -100,7 +98,6 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
   }
 
   onForeignKeyEdgeMappingDeletedEvent(event: any){
-    console.log(event)
     const id = (event as MappingComponent).mappingId
     removeMappingIdAndUpdate(this.foreignKeyEdgeMappingIds, id, this)
   }

@@ -1,5 +1,17 @@
 <div>
-<input [(ngModel)]="sqlColumn" #ctrl="ngModel" type="text" (input)="onUpdate();">
-<input [(ngModel)]="neo4jProperty" #ctrl="ngModel" type="text" (input)="onUpdate();">
+<input
+    [(ngModel)]="sqlColumn"
+    #ctrl="ngModel"
+    type="text"
+    (input)="onUpdate();"
+    [ngStyle]="{'background-color': (isValid(sqlColumn)) ? '#ffffff' : '#ffaaaa'}"
+>
+<input
+    [(ngModel)]="neo4jProperty"
+    #ctrl="ngModel"
+    type="text"
+    (input)="onUpdate();"
+    [ngStyle]="{'background-color': (isValid(neo4jProperty)) ? '#ffffff' : '#ffaaaa'}"
+>
 <button (click)="onDelete();">Delete</button>
 </div>

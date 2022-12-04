@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit, getModuleFactory } from '@angular/core';
+import { MappingComponent } from 'src/app/interfaces/components';
+import { ValidationService } from 'src/app/services/validation/validation.service';
 import { ColumnMappingComponent } from '../../../components/common/column-mapping/column-mapping.component';
-import { JoinTableEdgeMapping, SqlEdgeMapping } from '../../../interfaces/mapping-schemas';
+import { JoinTableEdgeMapping, Mapping, SqlEdgeMapping } from '../../../interfaces/mapping-schemas';
 import { getMappedColumns } from '../../../utils';
 
 @Component({
@@ -8,21 +10,33 @@ import { getMappedColumns } from '../../../utils';
   templateUrl: './sql-join-table-edge-mapping.component.html',
   styleUrls: ['./sql-join-table-edge-mapping.component.css']
 })
-export class SqlJoinTableEdgeMappingComponent implements OnInit {
+export class SqlJoinTableEdgeMappingComponent implements OnInit, MappingComponent {
 
   joinTable = ""
   edgeLabel = ""
   fromTable = ""
   toTable = ""
 
-  constructor() { }
+  constructor(private validationService: ValidationService) { }
+  
+  hasValidInput(): boolean {
+    return this.isValid(this.edgeLabel)
+        && this.isValid(this.joinTable)
+        && this.isValid(this.fromTable)
+        && this.isValid(this.toTable)
+  }
+
+  isValid(input: string): boolean {
+    return this.validationService.isOneWordBeginningWithLetter(input)
+  }
+
 
   ngOnInit(): void {
   }
 
   columnMappingComponents: Map<number, ColumnMappingComponent> = new Map();
 
-  @Input() joinTableEdgeMappingId = 0;
+  @Input() mappingId = 0;
 
   @Output() joinTableEdgeMappingDeletedEvent = new EventEmitter<SqlJoinTableEdgeMappingComponent>();
 
@@ -62,7 +76,7 @@ export class SqlJoinTableEdgeMappingComponent implements OnInit {
     this.onUpdate()
   }
 
-  getJoinTableEdgeMapping(): JoinTableEdgeMapping{
+  getMapping(): JoinTableEdgeMapping{
     return {
       "edgeLabel": this.edgeLabel,
       "from": this.fromTable,

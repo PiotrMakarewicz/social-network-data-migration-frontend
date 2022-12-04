@@ -18,6 +18,4 @@ export class BackendService {
       {"host":"localhost", "dbname":"socialdata", "user": "sna_user", "password":"password"},
     );
   }
-
-
 }

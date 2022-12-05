@@ -22,3 +22,10 @@ export interface ForeignKeyColumnInfo {
     foreignKeyColumn: ColumnInfo;
     referencedColumn: ColumnInfo;
 }
+
+export interface PostgreConnectionParams {
+    host: String,
+    dbname: String,
+    user: String, 
+    password: String
+}

@@ -8,6 +8,9 @@ import { SqlEdgeMapping, SqlNodeMapping, SqlSchemaMapping } from '../../../inter
 import { SqlForeignKeyEdgeMappingComponent } from '../sql-foreign-key-edge-mapping/sql-foreign-key-edge-mapping.component';
 import { SqlJoinTableEdgeMappingComponent } from '../sql-join-table-edge-mapping/sql-join-table-edge-mapping.component';
 import { SqlNodeMappingComponent } from '../sql-node-mapping/sql-node-mapping.component';
+import { DatabaseInfo } from 'src/app/interfaces/payloads';
+import { SqlSchemaVisualizationService } from 'src/app/services/sql-schema-visualization/sql-schema-visualization.service';
+import { Schema } from 'src/app/interfaces/sql-displayable-schema';
 
 @Component({
   selector: 'app-migrate-from-sql',
@@ -19,7 +22,8 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
 
   constructor(
     private sqlMappingToGraph: SqlMappingToGraphService,
-    private graphVisualization: GraphVisualizationService
+    private graphVisualization: GraphVisualizationService,
+    private sqlSchemaVisualization: SqlSchemaVisualizationService
   ){}
 
   mappingsJsonUri = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify({
@@ -50,6 +54,14 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
       "edges": Array.from(this.edgeMappings.values())
     }
   }
+
+  onPostgreSchemaEvent(event: any){
+    this.postgreSchema = this.sqlSchemaVisualization.toDisplayableSchema(event as DatabaseInfo)
+    this.connectedToSqlDb = true
+  }
+
+  connectedToSqlDb: boolean = false
+  postgreSchema: Schema = {tables: []}
 
   // NODE MAPPINGS
 

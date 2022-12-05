@@ -1,12 +1,19 @@
 <div class="sql-migration-grid">
-    <div>
-        <h3 class="grid-area-header">SQL SCHEMA</h3>
-        <app-sql-schema></app-sql-schema>
+    <div *ngIf="connectedToSqlDb; else connectToSqlDb">
+        <h3 class="grid-area-header">POSTGRESQL SCHEMA</h3>
+        <app-sql-schema [schema]="postgreSchema"></app-sql-schema>
     </div>
+    <ng-template #connectToSqlDb>
+        <div>
+            <h3 class="grid-area-header">CONNECT TO POSTGRESQL DATABASE</h3>
+            <app-connect-to-sql (postgreSchemaEvent)="onPostgreSchemaEvent($event)"></app-connect-to-sql>
+        </div>
+    </ng-template>
     <div>
         <h3 class="grid-area-header">NEO4J SCHEMA</h3>
         <app-graph-visualization [graphInDotFormat]="graphInDotFormat.asObservable()"></app-graph-visualization>
     </div>
+
     <div class="node-mappings">
         <h3 class="grid-area-header">NODE MAPPINGS</h3>
         <app-sql-node-mapping *ngFor="let nodeMappingId of nodeMappingIds" [mappingId]="nodeMappingId"

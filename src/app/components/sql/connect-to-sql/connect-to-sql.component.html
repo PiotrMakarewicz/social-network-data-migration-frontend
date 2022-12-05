@@ -1,0 +1,8 @@
+<div class="twocolgrid">
+<div><div>Host</div><div><input type="text" style="width: 90%;" [(ngModel)]="host" #ctrl="ngModel"></div></div>
+<div><div>Username</div><div><input type="text" style="width: 90%;" [(ngModel)]="username" #ctrl="ngModel"></div></div>
+<div><div>Port</div><div><input type="number" style="width: 90%;" [(ngModel)]="port" #ctrl="ngModel"></div></div>
+<div><div>Password</div><div><input type="password" style="width: 90%;" [(ngModel)]="password" #ctrl="ngModel"></div></div>
+<div><div>Database name</div><div><input type="text" style="width: 90%;" [(ngModel)]="dbname" #ctrl="ngModel"></div></div>
+<div><br><div></div><div><button style="width: 90%;" (click)="onConnectClick()">Connect!</button></div></div>
+</div>

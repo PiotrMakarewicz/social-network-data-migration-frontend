@@ -2,22 +2,26 @@
     <div class="mapping-header">
         <div class="input-with-label">
             <span>Foreign key table:</span>
-            <input type="text" [(ngModel)]="foreignKeyTable" #ctrl="ngModel" (input)="onUpdate()">
+            <input type="text" [(ngModel)]="foreignKeyTable" #ctrl="ngModel" (input)="onUpdate()"
+            [ngStyle]="{'background-color': (isValid(foreignKeyTable)) ? '#ffffff' : '#ffaaaa'}">
         </div>
         <div class="input-with-label">
             <span>Edge label:</span>
-            <input type="text" [(ngModel)]="edgeLabel" #ctrl="ngModel" (input)="onUpdate()">
+            <input type="text" [(ngModel)]="edgeLabel" #ctrl="ngModel" (input)="onUpdate()"
+            [ngStyle]="{'background-color': (isValid(edgeLabel)) ? '#ffffff' : '#ffaaaa'}">
         </div>
         <button class="delete-mapping-button" (click)="onDelete()">Delete</button>
     </div>
     <div class="mapping-header">
         <div class="input-with-label">
             <span>Source node table:</span>
-            <input type="text" [(ngModel)]="fromTable" #ctrl="ngModel" (input)="onUpdate()">
+            <input type="text" [(ngModel)]="fromTable" #ctrl="ngModel" (input)="onUpdate()"
+            [ngStyle]="{'background-color': (isValid(fromTable)) ? '#ffffff' : '#ffaaaa'}">
         </div>
         <div class="input-with-label">
             <span>Target node table:</span>
-            <input type="text" [(ngModel)]="toTable" #ctrl="ngModel" (input)="onUpdate()">
+            <input type="text" [(ngModel)]="toTable" #ctrl="ngModel" (input)="onUpdate()"
+            [ngStyle]="{'background-color': (isValid(toTable)) ? '#ffffff' : '#ffaaaa'}">
         </div>
     </div>
 </div>

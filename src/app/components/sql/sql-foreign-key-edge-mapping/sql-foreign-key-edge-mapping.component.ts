@@ -19,6 +19,7 @@ export class SqlForeignKeyEdgeMappingComponent implements OnInit, MappingCompone
         && this.isValid(this.toTable)
   }
 
+
   isValid(input: String): boolean {
     return this.validationService.isOneWordBeginningWithLetter(input)
   }

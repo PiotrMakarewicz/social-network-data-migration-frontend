@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { never, Observable, Subject } from 'rxjs';
 import { GraphVisualizationService } from 'src/app/services/graph-visualization/graph-visualization.service';
 import { SqlMappingToGraphService } from 'src/app/services/sql-mapping-to-graph/sql-mapping-to-graph.service';
@@ -19,7 +18,6 @@ import { Schema } from 'src/app/interfaces/sql-displayable-schema';
   styleUrls: ['./migrate-from-sql.component.css']
 })
 export class MigrateFromSqlComponent implements OnInit, Updateable {
-
   graphInDotFormat: Subject<String> = new Subject<String>();
 
   constructor(
@@ -27,7 +25,6 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
     private graphVisualization: GraphVisualizationService,
     private sqlSchemaVisualization: SqlSchemaVisualizationService
   ){}
-
 
   mappingsJsonUri = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify({
     "nodes": [],
@@ -70,22 +67,6 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
     nodes: [],
     edges: []
   }
-
-  }
-
-  generateMappingsJsonUri() {
-    const sqlSchemaMapping = this.getSqlSchemaMapping();
-    const jsonStr = JSON.stringify(sqlSchemaMapping, jsonReplacer);
-    return "data:application/json;charset=UTF-8," + encodeURIComponent(jsonStr);
-  }
-
-  getSqlSchemaMapping(): SqlSchemaMapping {
-    return {
-      "nodes": Array.from(this.nodeMappings.values()),
-      "edges": Array.from(this.edgeMappings.values())
-    }
-  }
-
   // NODE MAPPINGS
 
   nodeMappingIds: Array<number> = []

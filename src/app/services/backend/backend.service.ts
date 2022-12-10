@@ -1,21 +1,36 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { PostgreConnectionParams, PostgreSchemaResponsePayload } from '../../interfaces/payloads';
+import { SqlSchemaMapping } from 'src/app/interfaces/mapping-schemas';
+import { jsonReplacer } from 'src/app/utils';
+import { PostgreConnectionParams, PostgreSchemaResponsePayload, Neo4jConnectionParams } from '../../interfaces/payloads';
 
 @Injectable({
   providedIn: 'root'
 })
 export default class BackendService {
 
-  private postgreSchemaEndpoint = "/postgre_schema"
-
   constructor(private http: HttpClient) {}
 
   getPostgresSchema(connParams: PostgreConnectionParams): Observable<PostgreSchemaResponsePayload> {
     return this.http.post<PostgreSchemaResponsePayload>(
-      this.postgreSchemaEndpoint,
+      "/postgre_schema",
       connParams
     );
+  }
+
+  runSqlMigration(
+    postgreConnParams: PostgreConnectionParams,
+    neo4jConnParams: Neo4jConnectionParams,
+    sqlSchemaMapping: SqlSchemaMapping
+    ) {
+    return this.http.post<String>(
+      "migration/postgre",
+      {
+        postgreConnectionParams: postgreConnParams,
+        neo4jConnectionParams: neo4jConnParams,
+        rawSchemaMapping: JSON.stringify(sqlSchemaMapping, jsonReplacer)
+      }
+    )
   }
 }

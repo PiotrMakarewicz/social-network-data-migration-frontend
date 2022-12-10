@@ -40,6 +40,7 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
     this.mappingsJsonUri = this.generateMappingsJsonUri();
     const graph = this.sqlMappingToGraph.convert(this.getSqlSchemaMapping())
     this.graphInDotFormat.next(this.graphVisualization.toDotFormat(graph))
+    this.schemaMapping = this.getSqlSchemaMapping()
   }
 
   generateMappingsJsonUri() {
@@ -62,7 +63,10 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
 
   connectedToSqlDb: boolean = false
   postgreSchema: Schema = {tables: []}
-
+  schemaMapping: SqlSchemaMapping = {
+    nodes: [],
+    edges: []
+  }
   // NODE MAPPINGS
 
   nodeMappingIds: Array<number> = []

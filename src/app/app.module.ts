@@ -14,6 +14,7 @@ import { SqlJoinTableEdgeMappingComponent } from './components/sql/sql-join-tabl
 import { SqlForeignKeyEdgeMappingComponent } from './components/sql/sql-foreign-key-edge-mapping/sql-foreign-key-edge-mapping.component';
 import { GraphVisualizationComponent } from './components/common/graph-visualization/graph-visualization.component';
 import { ConnectToSqlComponent } from './components/sql/connect-to-sql/connect-to-sql.component';
+import { RunSqlMigrationComponent } from './components/sql/run-sql-migration/run-sql-migration.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ConnectToSqlComponent } from './components/sql/connect-to-sql/connect-t
     SqlJoinTableEdgeMappingComponent,
     SqlForeignKeyEdgeMappingComponent,
     GraphVisualizationComponent,
-    ConnectToSqlComponent
+    ConnectToSqlComponent,
+    RunSqlMigrationComponent
   ],
   imports: [
     BrowserModule,

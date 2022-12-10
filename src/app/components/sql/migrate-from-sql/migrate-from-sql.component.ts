@@ -27,14 +27,6 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
     private sqlSchemaVisualization: SqlSchemaVisualizationService
   ){}
 
-  graphInDotFormat: Subject<String> = new Subject<String>();
-
-  constructor(
-    private sqlMappingToGraph: SqlMappingToGraphService,
-    private graphVisualization: GraphVisualizationService,
-    private sqlSchemaVisualization: SqlSchemaVisualizationService
-  ){}
-
 
   mappingsJsonUri = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify({
     "nodes": [],

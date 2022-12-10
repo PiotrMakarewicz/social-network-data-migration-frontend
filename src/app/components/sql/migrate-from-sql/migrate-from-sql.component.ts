@@ -19,7 +19,6 @@ import { Schema } from 'src/app/interfaces/sql-displayable-schema';
   styleUrls: ['./migrate-from-sql.component.css']
 })
 export class MigrateFromSqlComponent implements OnInit, Updateable {
-
   graphInDotFormat: Subject<String> = new Subject<String>();
 
   constructor(
@@ -44,6 +43,7 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
     const graph = this.sqlMappingToGraph.convert(this.getSqlSchemaMapping())
     this.graphInDotFormat.next(this.graphVisualization.toDotFormat(graph))
     this.schemaMapping = this.getSqlSchemaMapping()
+
   }
 
   generateMappingsJsonUri() {
@@ -70,22 +70,6 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
     nodes: [],
     edges: []
   }
-
-  }
-
-  generateMappingsJsonUri() {
-    const sqlSchemaMapping = this.getSqlSchemaMapping();
-    const jsonStr = JSON.stringify(sqlSchemaMapping, jsonReplacer);
-    return "data:application/json;charset=UTF-8," + encodeURIComponent(jsonStr);
-  }
-
-  getSqlSchemaMapping(): SqlSchemaMapping {
-    return {
-      "nodes": Array.from(this.nodeMappings.values()),
-      "edges": Array.from(this.edgeMappings.values())
-    }
-  }
-
   // NODE MAPPINGS
 
   nodeMappingIds: Array<number> = []

@@ -10,5 +10,6 @@ export class ValidationService {
 
   isOneWordBeginningWithLetter(input: String): boolean{ 
     return new RegExp('^[A-Za-z][A-Za-z0-9_]*$').test(input.toString())
+  }
 
 }

@@ -42,3 +42,8 @@
     width: fit-content;
     margin: auto;
 }
+
+.twocolgrid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}

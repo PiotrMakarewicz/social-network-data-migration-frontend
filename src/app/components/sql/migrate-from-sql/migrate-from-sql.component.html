@@ -1,19 +1,27 @@
 <div class="sql-migration-grid">
-    <div>
-        <h3 class="grid-area-header">SQL SCHEMA</h3>
-        <app-sql-schema></app-sql-schema>
+    <div *ngIf="connectedToSqlDb; else connectToSqlDb">
+        <h3 class="grid-area-header">POSTGRESQL SCHEMA</h3>
+        <app-sql-schema [schema]="postgreSchema"></app-sql-schema>
     </div>
-    <div>
+    <ng-template #connectToSqlDb>
+        <div>
+            <h3 class="grid-area-header">CONNECT TO POSTGRESQL DATABASE</h3>
+            <app-connect-to-sql (postgreSchemaEvent)="onPostgreSchemaEvent($event)"></app-connect-to-sql>
+        </div>
+    </ng-template>
+    <div *ngIf="connectedToSqlDb">
         <h3 class="grid-area-header">NEO4J SCHEMA</h3>
+        <app-graph-visualization [graphInDotFormat]="graphInDotFormat.asObservable()"></app-graph-visualization>
     </div>
-    <div class="node-mappings">
+
+    <div class="node-mappings" *ngIf="connectedToSqlDb">
         <h3 class="grid-area-header">NODE MAPPINGS</h3>
         <app-sql-node-mapping *ngFor="let nodeMappingId of nodeMappingIds" [mappingId]="nodeMappingId"
             (nodeMappingDeletedEvent)="onNodeMappingDeletedEvent($event);"
             (nodeMappingUpdatedEvent)="onNodeMappingUpdatedEvent($event);"></app-sql-node-mapping>
         <button (click)="addNodeMapping()">Add node mapping</button>
     </div>
-    <div class="edge-mappings">
+    <div class="edge-mappings" *ngIf="connectedToSqlDb">
         <h3 class="grid-area-header">EDGE MAPPINGS</h3>
         <app-sql-foreign-key-edge-mapping *ngFor="let foreignKeyEdgeMappingId of foreignKeyEdgeMappingIds"
             [mappingId]="foreignKeyEdgeMappingId"
@@ -28,6 +36,11 @@
         <button (click)="addForeignKeyEdgeMapping()">Add edge mapping (foreign key)</button>
         <button (click)="addJoinTableEdgeMapping()">Add edge mapping (join table)</button>
     </div>
+    <span id="view-mappings-as-json" *ngIf="connectedToSqlDb">
+        <a [href]="mappingsJsonUri" target="_blank">View mappings as JSON</a>
+    </span>
+    <div class="run-sql-migration" *ngIf="connectedToSqlDb">
+        <h3 class="grid-area-header">RUN MIGRATION</h3>
+        <app-run-sql-migration [schemaMapping]="schemaMapping"></app-run-sql-migration>
+    </div>
 </div>
-
-<a [href]="mappingsJsonUri" target="_blank">View mappings as JSON</a>

@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { never } from 'rxjs';
+
+import { never, Observable, Subject } from 'rxjs';
+import { GraphVisualizationService } from 'src/app/services/graph-visualization/graph-visualization.service';
+import { SqlMappingToGraphService } from 'src/app/services/sql-mapping-to-graph/sql-mapping-to-graph.service';
 import { MappingComponent, Updateable } from 'src/app/interfaces/components';
-import { JoinTableEdgeMapping } from 'src/app/mapping-schemas';
 import { addMappingIdAndUpdate, jsonReplacer, removeMappingIdAndUpdate, saveMappingIfValidAndUpdate } from 'src/app/utils';
 import { SqlEdgeMapping, SqlNodeMapping, SqlSchemaMapping } from '../../../interfaces/mapping-schemas';
 import { SqlForeignKeyEdgeMappingComponent } from '../sql-foreign-key-edge-mapping/sql-foreign-key-edge-mapping.component';
 import { SqlJoinTableEdgeMappingComponent } from '../sql-join-table-edge-mapping/sql-join-table-edge-mapping.component';
 import { SqlNodeMappingComponent } from '../sql-node-mapping/sql-node-mapping.component';
+import { DatabaseInfo } from 'src/app/interfaces/payloads';
+import { SqlSchemaVisualizationService } from 'src/app/services/sql-schema-visualization/sql-schema-visualization.service';
+import { Schema } from 'src/app/interfaces/sql-displayable-schema';
 
 @Component({
   selector: 'app-migrate-from-sql',
@@ -14,6 +19,15 @@ import { SqlNodeMappingComponent } from '../sql-node-mapping/sql-node-mapping.co
   styleUrls: ['./migrate-from-sql.component.css']
 })
 export class MigrateFromSqlComponent implements OnInit, Updateable {
+
+  graphInDotFormat: Subject<String> = new Subject<String>();
+
+  constructor(
+    private sqlMappingToGraph: SqlMappingToGraphService,
+    private graphVisualization: GraphVisualizationService,
+    private sqlSchemaVisualization: SqlSchemaVisualizationService
+  ){}
+
 
   mappingsJsonUri = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify({
     "nodes": [],
@@ -27,6 +41,36 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
 
   onUpdate(){
     this.mappingsJsonUri = this.generateMappingsJsonUri();
+    const graph = this.sqlMappingToGraph.convert(this.getSqlSchemaMapping())
+    this.graphInDotFormat.next(this.graphVisualization.toDotFormat(graph))
+    this.schemaMapping = this.getSqlSchemaMapping()
+  }
+
+  generateMappingsJsonUri() {
+    const sqlSchemaMapping = this.getSqlSchemaMapping();
+    const jsonStr = JSON.stringify(sqlSchemaMapping, jsonReplacer);
+    return "data:application/json;charset=UTF-8," + encodeURIComponent(jsonStr);
+  }
+
+  getSqlSchemaMapping(): SqlSchemaMapping {
+    return {
+      "nodes": Array.from(this.nodeMappings.values()),
+      "edges": Array.from(this.edgeMappings.values())
+    }
+  }
+
+  onPostgreSchemaEvent(event: any){
+    this.postgreSchema = this.sqlSchemaVisualization.toDisplayableSchema(event as DatabaseInfo)
+    this.connectedToSqlDb = true
+  }
+
+  connectedToSqlDb: boolean = false
+  postgreSchema: Schema = {tables: []}
+  schemaMapping: SqlSchemaMapping = {
+    nodes: [],
+    edges: []
+  }
+
   }
 
   generateMappingsJsonUri() {

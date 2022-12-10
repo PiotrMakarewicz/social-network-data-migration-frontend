@@ -36,6 +36,11 @@
         <button (click)="addForeignKeyEdgeMapping()">Add edge mapping (foreign key)</button>
         <button (click)="addJoinTableEdgeMapping()">Add edge mapping (join table)</button>
     </div>
+    <span id="view-mappings-as-json">
+        <a [href]="mappingsJsonUri" target="_blank">View mappings as JSON</a>
+    </span>
+    <div class="run-sql-migration" [schemaMapping]="schemaMapping" > <!--- TODO *ngIf="connectedToSqlDb"  -->
+        <h3 class="grid-area-header">RUN MIGRATION</h3>
+        <app-run-sql-migration></app-run-sql-migration>
+    </div>
 </div>
-
-<a [href]="mappingsJsonUri" target="_blank">View mappings as JSON</a>

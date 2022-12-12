@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
 import { CsvSchemaMapping } from 'src/app/interfaces/mapping-schemas';
 import { Neo4jConnectionParams } from 'src/app/interfaces/payloads';
 import BackendService from 'src/app/services/backend/backend.service';
@@ -25,11 +26,25 @@ export class RunCsvMigrationComponent implements OnInit {
 
 
   onRunMigrationClick(){
-    this.backend.runCsvMigration(
+    const subscription = this.backend.runCsvMigration(
       this.csvFileUrl,
       this.withHeaders,
       this.getNeo4jConnectionParams(),
       <CsvSchemaMapping>this.csvSchemaMapping
+    )
+    .pipe<String>(
+      catchError(
+        err => {
+          alert("Failed to start migration. Reason: " + err.message)
+          return throwError(() => err)
+        }
+      )
+    )
+    .subscribe(
+      (payload: String) => {
+        alert("Migration with id: " + payload + " has started")
+        subscription.unsubscribe()
+      }
     )
   }
 

@@ -1,1 +1,53 @@
-<p>migrate-from-csv works!</p>
+<div class="migration-grid">
+    <div *ngIf="csvFileSelected; else selectCsvFile">
+        <h3 class="grid-area-header">MAPPINGS</h3>
+        <div class="mapping">
+            <h4>FROM NODE</h4>
+            <app-csv-node-mapping
+                [withHeaders]="withHeaders"
+                [isFromMapping]="true"
+                (nodeMappingUpdatedEvent)="onNodeMappingUpdatedEvent($event);"
+            ></app-csv-node-mapping>
+        </div>
+        <div class="mapping">
+            <h4>TO NODE</h4>
+            <app-csv-node-mapping
+                [withHeaders]="withHeaders"
+                [isFromMapping]="false"
+                (nodeMappingUpdatedEvent)="onNodeMappingUpdatedEvent($event);"
+            ></app-csv-node-mapping>
+        </div>
+        <div class="mapping">
+            <h4>EDGE</h4>
+            <app-csv-edge-mapping
+                [withHeaders]="withHeaders"
+                (edgeMappingUpdatedEvent)="onEdgeMappingUpdatedEvent($event);"    
+            ></app-csv-edge-mapping>
+        </div>
+    </div>
+    <ng-template #selectCsvFile>
+        <div>
+            <h3 class="grid-area-header">SELECT CSV FILE</h3>
+            <app-select-csv-file 
+                (csvFileSelectedEvent)="onCsvFileSelected($event)"
+                (withHeadersEvent)="onWithHeaders($event)"
+            >
+            </app-select-csv-file>
+        </div>
+    </ng-template>
+    <div *ngIf="csvFileSelected">
+        <h3 class="grid-area-header">NEO4J SCHEMA</h3>
+        <app-graph-visualization [graphInDotFormat]="graphInDotFormat.asObservable()"></app-graph-visualization>
+    </div>
+    <span id="view-mappings-as-json" *ngIf="csvFileSelected">
+        <a [href]="mappingsJsonUri" target="_blank">View mappings as JSON</a>
+    </span>
+    <div *ngIf="csvFileSelected">
+        <h3 class="grid-area-header">RUN MIGRATION</h3>
+        <app-run-csv-migration
+            [withHeaders]="withHeaders"
+            [csvFileUrl]="csvFileUrl"
+            [csvSchemaMapping]="schemaMapping"
+        ></app-run-csv-migration>
+    </div>
+</div>

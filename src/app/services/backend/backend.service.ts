@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
-import { SqlSchemaMapping } from 'src/app/interfaces/mapping-schemas';
+import { Observable } from 'rxjs';
+import { CsvSchemaMapping, SqlSchemaMapping } from 'src/app/interfaces/mapping-schemas';
 import { jsonReplacer } from 'src/app/utils';
 import { PostgreConnectionParams, PostgreSchemaResponsePayload, Neo4jConnectionParams } from '../../interfaces/payloads';
 
@@ -30,6 +30,23 @@ export default class BackendService {
         postgreConnectionParams: postgreConnParams,
         neo4jConnectionParams: neo4jConnParams,
         rawSchemaMapping: JSON.stringify(sqlSchemaMapping, jsonReplacer)
+      }
+    )
+  }
+
+  runCsvMigration(
+    csvFileUrl: String,
+    withHeaders: boolean,
+    neo4jConnectionParams: Neo4jConnectionParams,
+    csvSchemaMapping: CsvSchemaMapping
+  ) {
+    return this.http.post<String>(
+      "migration/csv",
+      {
+        csvFileUrl: csvFileUrl,
+        withHeaders: withHeaders,
+        neo4jConnectionParams: neo4jConnectionParams,
+        rawSchemaMapping:  JSON.stringify(csvSchemaMapping, jsonReplacer)
       }
     )
   }

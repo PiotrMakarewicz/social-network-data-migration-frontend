@@ -29,8 +29,12 @@ export class ColumnMappingComponent implements OnInit, MappingComponent, Mapping
     return this.validationService.isOneWordBeginningWithLetter(input)
   }
 
+  isNonEmpty(input: String): boolean {
+    return input.length > 0
+  }
+
   hasValidInput(): boolean {
-    return this.isValid(this.sqlColumn) && this.isValid(this.neo4jProperty)
+    return this.isNonEmpty(this.sqlColumn) && this.isValid(this.neo4jProperty)
   }
 
   getMapping(): Mapping {

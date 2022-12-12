@@ -4,7 +4,7 @@
     #ctrl="ngModel"
     type="text"
     (input)="onUpdate();"
-    [ngStyle]="{'background-color': (isValid(sqlColumn)) ? '#ffffff' : '#ffaaaa'}"
+    [ngStyle]="{'background-color': (isNonEmpty(sqlColumn)) ? '#ffffff' : '#ffaaaa'}"
 >
 <input
     [(ngModel)]="neo4jProperty"

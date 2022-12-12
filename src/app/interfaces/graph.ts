@@ -4,6 +4,7 @@ export interface Graph {
 }
 
 export interface Node {
+    id: String
     label: String
     properties: Array<String>
 }

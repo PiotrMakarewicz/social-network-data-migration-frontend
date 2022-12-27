@@ -1,0 +1,8 @@
+<div class="migration-statuses-container"><h3 class="grid-area-header">CURRENT MIGRATION STATUSES</h3>
+
+<table>
+    <tr><th style="width: 150px;">MIGRATION ID</th><th style="width: 150px;">STATUS</th><th style="font-style: italic;">(FAILURE REASON)</th></tr>
+    <tr app-single-migration-status *ngFor="let migrationStatus of migrationStatuses" [migrationId]="migrationStatus.migrationId" [status]="migrationStatus.migrationStatus"></tr>
+</table>
+
+</div>

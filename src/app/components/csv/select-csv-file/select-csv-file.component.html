@@ -1,0 +1,17 @@
+<div class="twocolgrid">
+    <div>
+        File absolute path:
+        <input type="url" [(ngModel)]="fileUrl" #ctrl="ngModel">
+    </div>
+    <div>
+        <input type="checkbox" [(ngModel)]="withHeaders" #ctrl="ngModel">With headers
+    </div>
+    <div></div>
+    <div>
+        <button (click)="onApplyClick()">Apply</button>
+    </div>
+    
+</div>
+
+
+

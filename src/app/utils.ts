@@ -40,3 +40,8 @@ export function jsonReplacer(_: any, value: any) {
   else 
     return value;
 }
+
+export function generateJsonUri(obj: Mapping) {
+  const jsonStr = JSON.stringify(obj, jsonReplacer);
+  return "data:application/json;charset=UTF-8," + encodeURIComponent(jsonStr);
+}

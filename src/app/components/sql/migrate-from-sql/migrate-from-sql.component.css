@@ -1,25 +1,7 @@
-.sql-migration-grid {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    margin-top: 15px;
-    border-collapse: collapse;
-    box-sizing: border-box;
-}
-
-.sql-migration-grid > div {
-    border-spacing: 0px;
-    border: 1px solid black;
-    padding: 5px;
-    border-collapse: collapse;
-}
-
 #view-mappings-as-json {
     border-style: none;
 }
 
-.grid-area-header {
-    margin-top: 2px;
-}
 
 .run-sql-migration {
     grid-column: 2;

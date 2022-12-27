@@ -39,7 +39,7 @@ export class RunSqlMigrationComponent implements OnInit {
     .pipe<String>(
       catchError(
         err => {
-          alert("Failed to start migration. Reason: " + err)
+          alert("Failed to start migration. Reason: " + err.message)
           return throwError(() => err)
         }
       )

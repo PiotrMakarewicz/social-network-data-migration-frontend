@@ -1,3 +1,18 @@
+.migration-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-top: 15px;
+    border-collapse: collapse;
+    box-sizing: border-box;
+}
+
+.migration-grid > div {
+    border-spacing: 0px;
+    border: 1px solid black;
+    padding: 5px;
+    border-collapse: collapse;
+}
+
 .mapping {
     border: 1px solid black;
     margin: 10px;
@@ -46,4 +61,12 @@
 .twocolgrid {
     display: grid;
     grid-template-columns: 50% 50%;
+}
+.threecolgrid {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+
+.grid-area-header {
+    margin-top: 2px;
 }

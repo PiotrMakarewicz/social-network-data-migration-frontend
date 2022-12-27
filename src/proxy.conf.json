@@ -8,5 +8,20 @@
         "target": "http://localhost:8080",
         "secure": false,
         "logLevel": "debug"
+    },
+    "/migration/csv/*": {
+        "target": "http://localhost:8080",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/migration_status/*": {
+        "target": "http://localhost:8080",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/migration_failure_reason/*": {
+        "target": "http://localhost:8080",
+        "secure": false,
+        "logLevel": "debug"
     }
 }

@@ -1,0 +1,26 @@
+<div class="mapping">
+    <div class="mapping-header">
+        <div class="input-with-label">
+            <span>Edge label:</span>
+            <input type="text" [(ngModel)]="edgeLabel" #ctrl="ngModel" (input)="onUpdate()"
+            [ngStyle]="{'background-color': (isValid(edgeLabel)) ? '#ffffff' : '#ffaaaa'}" >
+        </div>
+        <div class="empty-row"></div>
+    </div>
+
+    <div class="column-mappings">
+        <div class="column-mappings-header">
+            <div *ngIf="withHeaders; else csvColumnName">CSV column header</div>
+            <ng-template #csvColumnName><div>CSV column index</div></ng-template>
+            <div>Neo4j property</div>
+            <div></div>
+        </div>
+        <app-column-mapping 
+            *ngFor="let columnMappingId of columnMappingIds"
+            [mappingId]="columnMappingId"
+            (columnMappingUpdatedEvent)="onColumnMappingUpdatedEvent($event)"
+            (columnMappingDeletedEvent)="onColumnMappingDeletedEvent($event)">
+        </app-column-mapping>
+        <button (click)="addColumnMapping()">Add column mapping</button>
+    </div>
+</div>

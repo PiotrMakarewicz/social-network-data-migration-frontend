@@ -4,7 +4,7 @@ import { never, Observable, Subject } from 'rxjs';
 import { GraphVisualizationService } from 'src/app/services/graph-visualization/graph-visualization.service';
 import { SqlMappingToGraphService } from 'src/app/services/sql-mapping-to-graph/sql-mapping-to-graph.service';
 import { MappingComponent, Updateable } from 'src/app/interfaces/components';
-import { addMappingIdAndUpdate, jsonReplacer, removeMappingIdAndUpdate, saveMappingIfValidAndUpdate } from 'src/app/utils';
+import { addMappingIdAndUpdate, generateJsonUri, jsonReplacer, removeMappingIdAndUpdate, saveMappingIfValidAndUpdate } from 'src/app/utils';
 import { SqlEdgeMapping, SqlNodeMapping, SqlSchemaMapping } from '../../../interfaces/mapping-schemas';
 import { SqlForeignKeyEdgeMappingComponent } from '../sql-foreign-key-edge-mapping/sql-foreign-key-edge-mapping.component';
 import { SqlJoinTableEdgeMappingComponent } from '../sql-join-table-edge-mapping/sql-join-table-edge-mapping.component';
@@ -19,7 +19,7 @@ import { Schema } from 'src/app/interfaces/sql-displayable-schema';
   styleUrls: ['./migrate-from-sql.component.css']
 })
 export class MigrateFromSqlComponent implements OnInit, Updateable {
-  graphInDotFormat: Subject<String> = new Subject<String>();
+  
 
   constructor(
     private sqlMappingToGraph: SqlMappingToGraphService,
@@ -27,7 +27,7 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
     private sqlSchemaVisualization: SqlSchemaVisualizationService
   ){}
 
-
+  graphInDotFormat: Subject<String> = new Subject<String>();
   mappingsJsonUri = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify({
     "nodes": [],
     "edges": []
@@ -39,17 +39,10 @@ export class MigrateFromSqlComponent implements OnInit, Updateable {
   ngOnInit(): void {}
 
   onUpdate(){
-    this.mappingsJsonUri = this.generateMappingsJsonUri();
+    this.mappingsJsonUri = generateJsonUri(this.getSqlSchemaMapping());
     const graph = this.sqlMappingToGraph.convert(this.getSqlSchemaMapping())
     this.graphInDotFormat.next(this.graphVisualization.toDotFormat(graph))
     this.schemaMapping = this.getSqlSchemaMapping()
-
-  }
-
-  generateMappingsJsonUri() {
-    const sqlSchemaMapping = this.getSqlSchemaMapping();
-    const jsonStr = JSON.stringify(sqlSchemaMapping, jsonReplacer);
-    return "data:application/json;charset=UTF-8," + encodeURIComponent(jsonStr);
   }
 
   getSqlSchemaMapping(): SqlSchemaMapping {

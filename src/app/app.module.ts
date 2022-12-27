@@ -15,6 +15,12 @@ import { SqlForeignKeyEdgeMappingComponent } from './components/sql/sql-foreign-
 import { GraphVisualizationComponent } from './components/common/graph-visualization/graph-visualization.component';
 import { ConnectToSqlComponent } from './components/sql/connect-to-sql/connect-to-sql.component';
 import { RunSqlMigrationComponent } from './components/sql/run-sql-migration/run-sql-migration.component';
+import { SelectCsvFileComponent } from './components/csv/select-csv-file/select-csv-file.component';
+import { RunCsvMigrationComponent } from './components/csv/run-csv-migration/run-csv-migration.component';
+import { CsvNodeMappingComponent } from './components/csv/csv-node-mapping/csv-node-mapping.component';
+import { CsvEdgeMappingComponent } from './components/csv/csv-edge-mapping/csv-edge-mapping.component';
+import { MigrationStatusComponent } from './components/migration-status/migration-status.component';
+import { SingleMigrationStatusComponent } from './components/single-migration-status/single-migration-status.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +34,13 @@ import { RunSqlMigrationComponent } from './components/sql/run-sql-migration/run
     SqlForeignKeyEdgeMappingComponent,
     GraphVisualizationComponent,
     ConnectToSqlComponent,
-    RunSqlMigrationComponent
+    RunSqlMigrationComponent,
+    SelectCsvFileComponent,
+    RunCsvMigrationComponent,
+    CsvNodeMappingComponent,
+    CsvEdgeMappingComponent,
+    MigrationStatusComponent,
+    SingleMigrationStatusComponent
   ],
   imports: [
     BrowserModule,

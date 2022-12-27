@@ -25,3 +25,19 @@ export interface JoinTableEdgeMapping extends SqlEdgeMapping{
 export interface ForeignKeyEdgeMapping extends SqlEdgeMapping {
     foreignKeyTable: String
 }
+
+export interface CsvSchemaMapping extends Mapping {
+    fromNode: CsvNodeMapping
+    toNode: CsvNodeMapping
+    edge: CsvEdgeMapping
+}
+
+export interface CsvNodeMapping extends Mapping {
+    nodeLabel: String,
+    mappedColumns: Map<String, String>
+}
+
+export interface CsvEdgeMapping extends Mapping {
+    edgeLabel: String,
+    mappedColumns: Map<String, String>
+}

@@ -23,6 +23,7 @@ export class SqlMappingToGraphService {
 
   private getNode(nodeMapping: SqlNodeMapping): Node {
     return {
+      id: nodeMapping.nodeLabel,
       label: nodeMapping.nodeLabel,
       properties: Array.from(nodeMapping.mappedColumns.values())
     }

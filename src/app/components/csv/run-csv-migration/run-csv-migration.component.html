@@ -1,0 +1,8 @@
+<h4>Select target Neo4j database</h4>
+
+<div >
+    <div><div>Host</div><div><input type="text" style="width: 40%;" [(ngModel)]="host" #ctrl="ngModel"></div></div>
+    <div><div>Username</div><div><input type="text" style="width: 40%;" [(ngModel)]="username" #ctrl="ngModel"></div></div>
+    <div><div>Password</div><div><input type="password" style="width: 40%;" [(ngModel)]="password" #ctrl="ngModel"></div></div>
+    <div><br><div></div><div><button style="width: 40%;" (click)="onRunMigrationClick()">Run migration!</button></div></div>
+</div>

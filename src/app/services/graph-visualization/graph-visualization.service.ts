@@ -9,6 +9,10 @@ export class GraphVisualizationService {
   constructor() { }
 
   toDotFormat(graph: Graph): String {
+    console.log("digraph{\n" + 
+    graph.nodes.map(this.nodeAsString.bind(this)).join("\n") + "\n" +
+    graph.edges.map(this.edgeAsString.bind(this)).join("\n") +
+    "\n}")
     return "digraph{\n" + 
       graph.nodes.map(this.nodeAsString.bind(this)).join("\n") + "\n" +
       graph.edges.map(this.edgeAsString.bind(this)).join("\n") +
@@ -16,11 +20,11 @@ export class GraphVisualizationService {
   }
 
   nodeAsString(node: Node): String {
-    return node.label + " [label=\"" + node.label + this.propsAsString(node.properties) + "\" shape=circle fontsize=16];"
+    return node.id + " [label=\"" + node.label + this.propsAsString(node.properties) + "\" shape=circle fontsize=16];"
   }
 
   edgeAsString(edge: Edge): String {
-    return edge.fromNode.label+ " -> " + edge.toNode.label + " [label=\"" + edge.label + this.propsAsString(edge.properties) + "\" shape=circle fontsize=16];"
+    return edge.fromNode.id+ " -> " + edge.toNode.id + " [label=\"" + edge.label + this.propsAsString(edge.properties) + "\" shape=circle fontsize=16];"
   }
 
   propsAsString(props: Array<String>): string {

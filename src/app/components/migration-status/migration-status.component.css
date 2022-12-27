@@ -1,0 +1,12 @@
+.migration-statuses-container {
+    border-spacing: 0px;
+    border: 1px solid black;
+    padding: 5px;
+    border-collapse: collapse;
+    width: max-content;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}

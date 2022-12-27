@@ -41,3 +41,8 @@ export interface PostgreMigrationRequestPayload {
     neo4jConnectionParams: Neo4jConnectionParams
     rawSchemaMapping: String
 }
+
+export interface MigrationStatus {
+    migrationId: string,
+    migrationStatus: string;
+}

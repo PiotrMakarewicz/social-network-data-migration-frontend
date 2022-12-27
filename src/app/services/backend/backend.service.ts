@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { CsvSchemaMapping, SqlSchemaMapping } from 'src/app/interfaces/mapping-schemas';
 import { jsonReplacer } from 'src/app/utils';
 import { PostgreConnectionParams, PostgreSchemaResponsePayload, Neo4jConnectionParams } from '../../interfaces/payloads';
@@ -49,6 +49,16 @@ export default class BackendService {
         rawSchemaMapping:  JSON.stringify(csvSchemaMapping, jsonReplacer)
       }
     )
+  }
+
+  getMigrationStatuses(): Observable<any>{
+    return this.http.get<string>(
+      "migration_status"
+    )
+  }
+
+  getMigrationFailureReason(id: String): Observable<any> {
+    return this.http.get("migration_failure_reason/" + id, {responseType: 'text'})
   }
 
 }

@@ -10,7 +10,7 @@ export class SelectCsvFileComponent implements OnInit {
   constructor() { }
   
   
-  fileUrl: String = "file:///"
+  fileUrl: String = "/"
   withHeaders: boolean = false
 
   @Output() csvFileSelectedEvent = new EventEmitter<String>()

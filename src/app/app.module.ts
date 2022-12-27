@@ -19,6 +19,8 @@ import { SelectCsvFileComponent } from './components/csv/select-csv-file/select-
 import { RunCsvMigrationComponent } from './components/csv/run-csv-migration/run-csv-migration.component';
 import { CsvNodeMappingComponent } from './components/csv/csv-node-mapping/csv-node-mapping.component';
 import { CsvEdgeMappingComponent } from './components/csv/csv-edge-mapping/csv-edge-mapping.component';
+import { MigrationStatusComponent } from './components/migration-status/migration-status.component';
+import { SingleMigrationStatusComponent } from './components/single-migration-status/single-migration-status.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { CsvEdgeMappingComponent } from './components/csv/csv-edge-mapping/csv-e
     SelectCsvFileComponent,
     RunCsvMigrationComponent,
     CsvNodeMappingComponent,
-    CsvEdgeMappingComponent
+    CsvEdgeMappingComponent,
+    MigrationStatusComponent,
+    SingleMigrationStatusComponent
   ],
   imports: [
     BrowserModule,
